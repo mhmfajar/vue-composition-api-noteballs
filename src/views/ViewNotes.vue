@@ -25,7 +25,7 @@
 
     <hr class="divider my-3" />
 
-    <NoteItem v-for="note in notes" :note="note" :key="note.id" @deleteClicked="deleteNote" />
+    <NoteItem v-for="note in storeNotes.notes" :note="note" :key="note.id" />
   </div>
 </template>
 
@@ -33,41 +33,24 @@
 // imports
 import { ref } from 'vue'
 import NoteItem from '@/components/Notes/NoteItem.vue'
+import { useStoreNotes } from '@/stores/storeNotes'
+
+// stores
+const storeNotes = useStoreNotes()
 
 // notes
 const newNote = ref('')
 const newNoteRef = ref<HTMLButtonElement>()
-const notes = ref([
-  {
-    id: 1,
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores at, nostrum non aut, laborum impedit placeat corrupti earum saepe molestiae veniam iusto quaerat tempora nihil delectus! Inventore, sapiente. Voluptatem, perspiciatis.'
-  },
-  {
-    id: 2,
-    content: 'This is a shorter note! Woo!'
-  }
-])
 
 // add new note
 const addNewNote = () => {
   // const addNewNote = async () => {
   // await new Promise((resolve) => setTimeout(resolve, 1000))
 
-  notes.value.push({
-    id: notes.value.length + 1,
-    content: newNote.value
-  })
+  storeNotes.addNote(newNote.value)
 
   newNote.value = ''
   newNoteRef.value?.focus()
-}
-
-// delete note
-const deleteNote = (idNote: number) => {
-  notes.value = notes.value.filter((note) => {
-    return note.id !== idNote
-  })
 }
 </script>
 
