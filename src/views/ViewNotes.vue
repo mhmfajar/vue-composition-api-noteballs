@@ -1,6 +1,6 @@
 <template>
   <div class="notes">
-    <NoteForm v-model="newNote" ref="noteRef">
+    <NoteForm v-model="newNote" ref="noteRef" placeholder="Add a new note" label="Add Note">
       <template #button>
         <div class="buttons">
           <button :disabled="!newNote" @click="addNewNote" class="button is-success">

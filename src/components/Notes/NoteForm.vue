@@ -1,12 +1,15 @@
 <template>
-  <div class="card has-background-success-dark p-4">
+  <div class="card p-4" :class="`has-background-${bgColor}-dark`">
+    <label v-if="label" for="content" class="label has-text-white">{{ label }}</label>
+
     <div class="field">
       <div class="control">
         <textarea
+          id="content"
           :value="modelValue"
           @input="handleTextarea"
           class="textarea"
-          placeholder="Add a new note"
+          :placeholder="placeholder"
           ref="textareaRef"
         ></textarea>
       </div>
@@ -28,6 +31,17 @@ defineProps({
   modelValue: {
     type: String,
     required: true
+  },
+  bgColor: {
+    type: String,
+    default: 'success'
+  },
+  placeholder: {
+    type: String,
+    default: 'Type Something ...'
+  },
+  label: {
+    type: String
   }
 })
 
