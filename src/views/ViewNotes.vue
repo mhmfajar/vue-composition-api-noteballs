@@ -1,27 +1,14 @@
 <template>
   <div class="notes">
-    <div class="card has-background-success-dark p-4">
-      <div class="field">
-        <div class="control">
-          <textarea
-            v-model="newNote"
-            class="textarea"
-            placeholder="Add a new note"
-            ref="newNoteRef"
-          ></textarea>
+    <NoteForm v-model="newNote">
+      <template #button>
+        <div class="buttons">
+          <button :disabled="!newNote" @click="addNewNote" class="button is-success">
+            Add New Note
+          </button>
         </div>
-      </div>
-
-      <div class="field is-grouped is-grouped-right">
-        <div class="control">
-          <div class="buttons">
-            <button :disabled="!newNote" @click="addNewNote" class="button is-success">
-              Add New Note
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+      </template>
+    </NoteForm>
 
     <hr class="divider my-3" />
 
@@ -32,8 +19,9 @@
 <script setup lang="ts">
 // imports
 import { ref } from 'vue'
-import NoteItem from '@/components/Notes/NoteItem.vue'
 import { useStoreNotes } from '@/stores/storeNotes'
+import NoteItem from '@/components/Notes/NoteItem.vue'
+import NoteForm from '@/components/Notes/NoteForm.vue'
 
 // stores
 const storeNotes = useStoreNotes()
