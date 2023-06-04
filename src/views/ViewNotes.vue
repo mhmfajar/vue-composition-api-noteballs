@@ -1,6 +1,6 @@
 <template>
   <div class="notes">
-    <NoteForm v-model="newNote">
+    <NoteForm v-model="newNote" ref="noteRef">
       <template #button>
         <div class="buttons">
           <button :disabled="!newNote" @click="addNewNote" class="button is-success">
@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 // imports
-import { ref } from 'vue'
+import { ref, type Ref } from 'vue'
 import { useStoreNotes } from '@/stores/storeNotes'
 import NoteItem from '@/components/Notes/NoteItem.vue'
 import NoteForm from '@/components/Notes/NoteForm.vue'
@@ -28,7 +28,7 @@ const storeNotes = useStoreNotes()
 
 // notes
 const newNote = ref('')
-const newNoteRef = ref<HTMLButtonElement>()
+const noteRef: Ref = ref(null)
 
 // add new note
 const addNewNote = () => {
@@ -38,7 +38,7 @@ const addNewNote = () => {
   storeNotes.addNote(newNote.value)
 
   newNote.value = ''
-  newNoteRef.value?.focus()
+  noteRef.value?.focusTextArea()
 }
 </script>
 

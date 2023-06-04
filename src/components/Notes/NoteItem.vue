@@ -46,5 +46,3 @@ const characterLength = computed(() => {
   return `${length} ${description}`
 })
 </script>
-
-<style scoped></style>

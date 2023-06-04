@@ -7,6 +7,7 @@
           @input="handleTextarea"
           class="textarea"
           placeholder="Add a new note"
+          ref="textareaRef"
         ></textarea>
       </div>
     </div>
@@ -20,6 +21,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+
 // props
 defineProps({
   modelValue: {
@@ -35,6 +38,17 @@ const emit = defineEmits(['update:modelValue'])
 const handleTextarea = (event: Event) => {
   emit('update:modelValue', (event.target as HTMLTextAreaElement).value)
 }
+
+// focus textarea
+const textareaRef = ref<HTMLTextAreaElement | null>(null)
+
+const focusTextArea = () => {
+  textareaRef.value?.focus()
+}
+
+defineExpose({
+  focusTextArea
+})
 </script>
 
 <style scoped></style>
