@@ -11,6 +11,8 @@
           aria-label="menu"
           aria-expanded="false"
           :class="{ 'is-active': showMobileNav }"
+          data-target="navbarBasic"
+          ref="navbarBurgerRef"
         >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -18,7 +20,12 @@
         </a>
       </div>
 
-      <div class="navbar-menu" :class="{ 'is-active': showMobileNav }">
+      <div
+        class="navbar-menu"
+        :class="{ 'is-active': showMobileNav }"
+        ref="navbarMenuRef"
+        id="navbarBasic"
+      >
         <div class="navbar-end">
           <RouterLink
             @click="showMobileNav = false"
@@ -42,7 +49,8 @@
 
 <script setup lang="ts">
 // imports
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onClickOutside } from '@vueuse/core'
 
 // mobile nav
 const showMobileNav = ref(false)
@@ -59,8 +67,11 @@ onMounted(() => {
   window.addEventListener('resize', handleResize)
 })
 
-watch(showMobileNav, (newValue) => {
-  console.log('Lebar berubah menjadi:', newValue)
+// click outside to close
+const navbarMenuRef = ref(null)
+const navbarBurgerRef = ref(null)
+onClickOutside(navbarMenuRef, () => (showMobileNav.value = false), {
+  ignore: [navbarBurgerRef]
 })
 </script>
 
