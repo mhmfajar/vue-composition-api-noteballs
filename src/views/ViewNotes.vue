@@ -20,6 +20,7 @@
 // imports
 import { ref, type Ref } from 'vue'
 import { useStoreNotes } from '@/stores/storeNotes'
+import { useWatchCharacters } from '@/use/useWatchCharacters'
 import NoteItem from '@/components/Notes/NoteItem.vue'
 import NoteForm from '@/components/Notes/NoteForm.vue'
 
@@ -32,14 +33,14 @@ const noteRef: Ref = ref(null)
 
 // add new note
 const addNewNote = () => {
-  // const addNewNote = async () => {
-  // await new Promise((resolve) => setTimeout(resolve, 1000))
-
   storeNotes.addNote(newNote.value)
 
   newNote.value = ''
   noteRef.value?.focusTextArea()
 }
+
+// watch characters
+useWatchCharacters(newNote)
 </script>
 
 <style scoped>
