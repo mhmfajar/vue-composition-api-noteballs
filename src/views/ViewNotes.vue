@@ -13,6 +13,8 @@
     <hr class="divider my-3" />
 
     <NoteItem v-for="note in storeNotes.notes" :note="note" :key="note.id" />
+
+    <ModalNote />
   </div>
 </template>
 
@@ -23,6 +25,7 @@ import { useStoreNotes } from '@/stores/storeNotes'
 import { useWatchCharacters } from '@/use/useWatchCharacters'
 import NoteItem from '@/components/Notes/NoteItem.vue'
 import NoteForm from '@/components/Notes/NoteForm.vue'
+import ModalNote from '@/components/Notes/ModalNote.vue'
 
 // stores
 const storeNotes = useStoreNotes()

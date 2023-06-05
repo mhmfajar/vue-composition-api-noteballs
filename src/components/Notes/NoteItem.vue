@@ -26,7 +26,7 @@ const storeNotes = useStoreNotes()
 
 // type
 interface Note {
-  id: number
+  id: string
   content: string
 }
 
